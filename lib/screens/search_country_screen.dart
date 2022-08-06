@@ -1,14 +1,7 @@
-import 'package:covid_19_tracker/utils/constants.dart';
-import 'package:covid_19_tracker/utils/theme_constants.dart';
+import 'package:covid_19_tracker/utils/helper_widgets.dart';
 import 'package:flutter/material.dart';
 
-void main(List<String> args) {
-  runApp(MaterialApp(
-    home: const SearchCountryScreen(),
-    theme: covidTheme,
-    debugShowCheckedModeBanner: false,
-  ));
-}
+import '../utils/constants.dart';
 
 class SearchCountryScreen extends StatefulWidget {
   const SearchCountryScreen({Key? key}) : super(key: key);
@@ -18,7 +11,7 @@ class SearchCountryScreen extends StatefulWidget {
 }
 
 class _SearchCountryScreenState extends State<SearchCountryScreen> {
-  late final Size size;
+  Size? _size;
   late final TextEditingController _ecSearchCountry;
 
   @override
@@ -29,13 +22,13 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
+    _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Track Country',
           style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: size.height * 0.03,
+                fontSize: _size!.height * 0.03,
               ),
         ),
         automaticallyImplyLeading: true,
@@ -46,12 +39,24 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
 
   Widget _buildBody() {
     return Padding(
-      padding: EdgeInsets.all(size.height * 0.015),
+      padding: EdgeInsets.all(_size!.height * 0.015),
       child: Column(
         children: [
           _buildSearchField(),
-          const Expanded(child: SizedBox()),
+          addVerticalSpace(_size!.height * 0.010),
+          _buildListItems(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildListItems() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 50,
+        itemBuilder: (context, index) {
+          return _buildListItem(index);
+        },
       ),
     );
   }
@@ -87,6 +92,108 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
         ),
       ),
       cursorColor: MyColors.kBlack,
+    );
+  }
+
+  Widget _buildListItem(int index) {
+    return Container(
+      height: _size!.height * 0.1,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      margin: EdgeInsets.only(top: _size!.height * 0.015),
+      decoration: BoxDecoration(
+        color: MyColors.kCodGrayColor,
+        borderRadius: BorderRadius.circular(_size!.height * 0.03),
+        border: Border.all(color: MyColors.kCodGrayColor, width: 1.0),
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              height: double.infinity,
+              clipBehavior: Clip.antiAlias,
+              width: constraints.maxWidth * 0.97,
+              decoration: BoxDecoration(
+                color: MyColors.kPorcelainColor,
+                borderRadius: BorderRadius.circular(_size!.height * 0.03),
+                border: Border.all(color: MyColors.kCodGrayColor, width: 0.2),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Material(
+                color: MyColors.kPorcelainColor,
+                child: InkWell(
+                  splashColor: MyColors.kWhite,
+                  onTap: () {
+                    print('click');
+                  },
+                  child: _buildListItemContent(context),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildListItemContent(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: _size!.width * 0.03),
+          child: CircleAvatar(
+            radius: _size!.height * 0.03,
+            child: ClipOval(
+              child: Image.asset(
+                r'assets/images/pakistan.jpg',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        _buildCNameAndStats('Pakistan', 'Effected: 3,434,332'),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCNameAndStats(String title, String stats) {
+    return Expanded(
+      child: SizedBox(
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCountryTitle(title),
+            _buildCountryStats(stats),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCountryTitle(String text) {
+    return Text(
+      text,
+      style: Theme.of(context)
+          .textTheme
+          .headline4!
+          .copyWith(fontSize: _size!.height * 0.023),
+    );
+  }
+
+  Widget _buildCountryStats(String text) {
+    return Text(
+      text,
+      style: Theme.of(context)
+          .textTheme
+          .headline6!
+          .copyWith(fontSize: _size!.height * 0.02),
     );
   }
 }

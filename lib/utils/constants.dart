@@ -8,4 +8,5 @@ class MyColors {
   static const kDoveGrayColor = Color(0xFF626262);
   static const kCodGrayColor = Color(0xFF090909);
   static const kBlack = Colors.black;
+  static const kWhite = Colors.white;
 }
