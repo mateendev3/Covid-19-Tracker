@@ -2,6 +2,7 @@ import 'package:covid_19_tracker/utils/helper_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
+import 'master_country_screen.dart';
 
 class SearchCountryScreen extends StatefulWidget {
   const SearchCountryScreen({Key? key}) : super(key: key);
@@ -124,7 +125,11 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
                 child: InkWell(
                   splashColor: MyColors.kWhite,
                   onTap: () {
-                    print('click');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const MasterCountryScreen(),
+                      ),
+                    );
                   },
                   child: _buildListItemContent(context),
                 ),
