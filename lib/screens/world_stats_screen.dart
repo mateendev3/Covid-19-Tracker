@@ -265,7 +265,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Divider _addHorizontalDivider() {
+  Widget _addHorizontalDivider() {
     return Divider(
       color: MyColors.kLoblollyLightColor,
       thickness: 1.0,

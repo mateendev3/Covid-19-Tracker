@@ -39,7 +39,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
 
   Widget _buildBody() {
     return Padding(
-      padding: EdgeInsets.all(_size!.height * 0.015),
+      padding: EdgeInsets.all(_size!.height * 0.03),
       child: Column(
         children: [
           _buildSearchField(),
