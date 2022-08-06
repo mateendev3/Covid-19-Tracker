@@ -116,7 +116,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
     return Text(
       text,
       style: Theme.of(context).textTheme.headline4!.copyWith(
-            fontSize: _size!.height * 0.025,
+            fontSize: _size!.height * 0.022,
           ),
     );
   }

@@ -33,6 +33,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
               ),
         ),
         automaticallyImplyLeading: true,
+        // backgroundColor: Colors.blue,
       ),
       body: _buildBody(),
     );
@@ -40,8 +41,13 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
 
   Widget _buildBody() {
     return Padding(
-      padding: EdgeInsets.all(_size!.height * 0.03),
+      padding: EdgeInsets.only(
+        left: _size!.height * 0.03,
+        right: _size!.height * 0.03,
+        bottom: _size!.height * 0.03,
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _buildSearchField(),
           addVerticalSpace(_size!.height * 0.015),

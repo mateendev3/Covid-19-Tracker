@@ -1,9 +1,12 @@
-import 'package:covid_19_tracker/screens/search_country_screen.dart';
-import 'package:covid_19_tracker/services/apis/get_countries_report_api.dart';
+import 'package:covid_19_tracker/services/repositories/countries_report_repository.dart';
+import 'package:covid_19_tracker/services/repositories/world_report_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
 
 import '../utils/constants.dart';
 import '../utils/helper_widgets.dart';
+import 'search_country_screen.dart';
 
 class WorldStatusScreen extends StatefulWidget {
   const WorldStatusScreen({Key? key}) : super(key: key);
@@ -13,11 +16,25 @@ class WorldStatusScreen extends StatefulWidget {
 }
 
 class _WorldStatusScreenState extends State<WorldStatusScreen> {
+  final formatter = intl.NumberFormat.decimalPattern();
+
+  @override
+  void initState() {
+    super.initState();
+    // calling api
+    Provider.of<WorldReportRepository>(context, listen: false).getWorldReport();
+    Provider.of<CountriesReportRepository>(context, listen: false)
+        .getCountriesReport();
+  }
+
   Size? _size;
+  late WorldReportRepository _wrRepo;
+  late CountriesReportRepository _crRepo;
   @override
   Widget build(BuildContext context) {
-    GetCountriesReportApi().fetchCountriesReport();
     _size = MediaQuery.of(context).size;
+    _wrRepo = Provider.of<WorldReportRepository>(context, listen: true);
+    _crRepo = Provider.of<CountriesReportRepository>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,7 +51,11 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           ),
         ],
       ),
-      body: _buildBody(),
+      body: _wrRepo.worldReport == null || _crRepo.countriesReportList == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : _buildBody(),
     );
   }
 
@@ -153,10 +174,13 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             left: 0.0,
             child: CircleAvatar(
               radius: _size!.height * 0.03,
-              // backgroundImage: const AssetImage(r'assets/images/pakistan.jpg'),
               child: ClipOval(
-                child: Image.asset(
-                  r'assets/images/pakistan.jpg',
+                child: Image.network(
+                  _crRepo.countriesReportList!
+                      .firstWhere((element) => element.country == 'Pakistan')
+                      .countryFlag!,
+                  width: _size!.height * 0.06,
+                  height: _size!.height * 0.06,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -168,25 +192,36 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   }
 
   Widget _buildHeaderStats() {
+    var countryReport = _crRepo.countriesReportList!
+        .firstWhere((element) => element.country == 'Pakistan');
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildHeaderItemInfo('Infected', '3,232,434'),
+        _buildHeaderItemInfo(
+          'Infected',
+          formatter.format(countryReport.totalCases),
+        ),
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
           indent: _size!.height * 0.035,
           endIndent: _size!.height * 0.035,
         ),
-        _buildHeaderItemInfo('Recovered', '2,232,434'),
+        _buildHeaderItemInfo(
+          'Recovered',
+          formatter.format(countryReport.recovered),
+        ),
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
           indent: _size!.height * 0.035,
           endIndent: _size!.height * 0.035,
         ),
-        _buildHeaderItemInfo('Deaths', '1,53,343'),
+        _buildHeaderItemInfo(
+          'Deaths',
+          formatter.format(countryReport.deaths),
+        ),
       ],
     );
   }
@@ -229,19 +264,40 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   Widget _buildReportItems() {
     return Column(
       children: [
-        _buildReportItem('Total Cases', '334,434,343'),
+        _buildReportItem(
+          'Total Cases',
+          formatter.format(_wrRepo.worldReport!.totalCases),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Deaths', '4,434,343'),
+        _buildReportItem(
+          'Deaths',
+          formatter.format(_wrRepo.worldReport!.deaths),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Recovered', '43,434,343'),
+        _buildReportItem(
+          'Recovered',
+          formatter.format(_wrRepo.worldReport!.recovered),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Active', '2,434,343'),
+        _buildReportItem(
+          'Active',
+          formatter.format(_wrRepo.worldReport!.active),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Critical', '434,343'),
+        _buildReportItem(
+          'Critical',
+          formatter.format(_wrRepo.worldReport!.critical),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Today Deaths', '34,343'),
+        _buildReportItem(
+          'Today Deaths',
+          formatter.format(_wrRepo.worldReport!.todayDeaths),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Today Recovered', '22,434,343'),
+        _buildReportItem(
+          'Today Recovered',
+          formatter.format(_wrRepo.worldReport!.todayRecovered),
+        ),
       ],
     );
   }
