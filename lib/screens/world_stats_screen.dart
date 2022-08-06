@@ -12,16 +12,16 @@ class WorldStatusScreen extends StatefulWidget {
 }
 
 class _WorldStatusScreenState extends State<WorldStatusScreen> {
-  late final Size size;
+  Size? _size;
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
+    _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Covid-19 Tracker',
           style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: size.height * 0.04,
+                fontSize: _size!.height * 0.04,
               ),
         ),
         automaticallyImplyLeading: false,
@@ -39,7 +39,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   /// Building body (remaining content) of the screen.
   Widget _buildBody() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.height * 0.015),
+      padding: EdgeInsets.symmetric(horizontal: _size!.height * 0.015),
       child: Column(
         children: [
           // const Expanded(flex: 3, child: SizedBox()),
@@ -58,11 +58,11 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       flex: 12,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: size.height * 0.018,
-          horizontal: size.width * 0.01,
+          vertical: _size!.height * 0.018,
+          horizontal: _size!.width * 0.01,
         ),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: size.height * 0.015),
+          margin: EdgeInsets.symmetric(horizontal: _size!.height * 0.015),
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
@@ -81,7 +81,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             child: Text(
               'Track Countries',
               style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontSize: size.height * 0.02,
+                    fontSize: _size!.height * 0.02,
                     color: MyColors.kPorcelainColor,
                   ),
             ),
@@ -94,16 +94,16 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   Widget _buildHeading(String heading) {
     return Container(
       margin: EdgeInsets.only(
-        top: size.height * 0.02,
-        left: size.height * 0.01,
-        right: size.height * 0.01,
+        top: _size!.height * 0.02,
+        left: _size!.height * 0.01,
+        right: _size!.height * 0.01,
       ),
-      padding: EdgeInsets.only(left: size.height * 0.01),
+      padding: EdgeInsets.only(left: _size!.height * 0.01),
       alignment: Alignment.centerLeft,
       child: Text(
         heading,
         style: Theme.of(context).textTheme.headline3!.copyWith(
-              fontSize: size.height * 0.03,
+              fontSize: _size!.height * 0.03,
               fontWeight: FontWeight.w600,
             ),
       ),
@@ -114,11 +114,11 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     return Expanded(
       flex: 60,
       child: Container(
-        margin: EdgeInsets.all(size.height * 0.015),
+        margin: EdgeInsets.all(_size!.height * 0.015),
         padding: EdgeInsets.symmetric(
-            vertical: size.height * 0.015, horizontal: size.height * 0.03),
+            vertical: _size!.height * 0.015, horizontal: _size!.height * 0.03),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.height * 0.03),
+          borderRadius: BorderRadius.circular(_size!.height * 0.03),
           border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
         ),
         child: _buildReportItems(),
@@ -134,23 +134,23 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
         children: [
           Container(
             margin: EdgeInsets.only(
-              top: size.height * 0.015,
-              left: size.height * 0.015,
-              right: size.height * 0.015,
+              top: _size!.height * 0.015,
+              left: _size!.height * 0.015,
+              right: _size!.height * 0.015,
             ),
-            padding: EdgeInsets.only(bottom: size.height * 0.02),
+            padding: EdgeInsets.only(bottom: _size!.height * 0.02),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(size.height * 0.03),
+              borderRadius: BorderRadius.circular(_size!.height * 0.03),
               border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
             ),
             child: _buildHeaderStats(),
           ),
           Positioned(
-            bottom: -(size.height * 0.03),
+            bottom: -(_size!.height * 0.03),
             right: 0.0,
             left: 0.0,
             child: CircleAvatar(
-              radius: size.height * 0.03,
+              radius: _size!.height * 0.03,
               // backgroundImage: const AssetImage(r'assets/images/pakistan.jpg'),
               child: ClipOval(
                 child: Image.asset(
@@ -174,15 +174,15 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
-          indent: size.height * 0.035,
-          endIndent: size.height * 0.035,
+          indent: _size!.height * 0.035,
+          endIndent: _size!.height * 0.035,
         ),
         _buildHeaderItemInfo('Recovered', '2,232,434'),
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
-          indent: size.height * 0.035,
-          endIndent: size.height * 0.035,
+          indent: _size!.height * 0.035,
+          endIndent: _size!.height * 0.035,
         ),
         _buildHeaderItemInfo('Deaths', '1,53,343'),
       ],
@@ -197,7 +197,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _buildHeaderTitle(title),
-          addVerticalSpace(size.height * 0.01),
+          addVerticalSpace(_size!.height * 0.01),
           _buildHeaderCount(count),
         ],
       ),
@@ -210,7 +210,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       style: Theme.of(context)
           .textTheme
           .headline6!
-          .copyWith(fontSize: size.height * 0.02),
+          .copyWith(fontSize: _size!.height * 0.02),
     );
   }
 
@@ -220,7 +220,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       style: Theme.of(context)
           .textTheme
           .headline4!
-          .copyWith(fontSize: size.height * 0.02),
+          .copyWith(fontSize: _size!.height * 0.02),
     );
   }
 
@@ -260,7 +260,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     return Text(
       text,
       style: Theme.of(context).textTheme.headline4!.copyWith(
-            fontSize: size.height * 0.02,
+            fontSize: _size!.height * 0.02,
           ),
     );
   }
@@ -269,8 +269,8 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     return Divider(
       color: MyColors.kLoblollyLightColor,
       thickness: 1.0,
-      indent: size.height * 0.08,
-      endIndent: size.height * 0.08,
+      indent: _size!.height * 0.08,
+      endIndent: _size!.height * 0.08,
     );
   }
 }
