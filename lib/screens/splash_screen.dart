@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import '../utils/helper_widgets.dart';
-import 'world_status_screen.dart';
+import 'world_stats_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

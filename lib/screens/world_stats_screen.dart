@@ -1,3 +1,4 @@
+import 'package:covid_19_tracker/screens/search_country_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
@@ -11,9 +12,10 @@ class WorldStatusScreen extends StatefulWidget {
 }
 
 class _WorldStatusScreenState extends State<WorldStatusScreen> {
+  late final Size size;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -30,28 +32,28 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           ),
         ],
       ),
-      body: _buildBody(size),
+      body: _buildBody(),
     );
   }
 
   /// Building body (remaining content) of the screen.
-  Widget _buildBody(Size size) {
+  Widget _buildBody() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.height * 0.015),
       child: Column(
         children: [
           // const Expanded(flex: 3, child: SizedBox()),
-          _buildHeader(size),
+          _buildHeader(),
           const Expanded(flex: 5, child: SizedBox()),
-          _buildHeading(size, 'World Reports'),
-          _buildReportDetails(size),
-          _buildCountryButton(size),
+          _buildHeading('World Reports'),
+          _buildReportDetails(),
+          _buildCountryButton(),
         ],
       ),
     );
   }
 
-  Widget _buildCountryButton(Size size) {
+  Widget _buildCountryButton() {
     return Expanded(
       flex: 12,
       child: Padding(
@@ -63,7 +65,13 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           margin: EdgeInsets.symmetric(horizontal: size.height * 0.015),
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const SearchCountryScreen(),
+                ),
+              );
+            },
             style: ElevatedButton.styleFrom(
               enableFeedback: true,
               primary: MyColors.kCodGrayColor,
@@ -83,7 +91,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Widget _buildHeading(Size size, String heading) {
+  Widget _buildHeading(String heading) {
     return Container(
       margin: EdgeInsets.only(
         top: size.height * 0.02,
@@ -102,7 +110,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Widget _buildReportDetails(Size size) {
+  Widget _buildReportDetails() {
     return Expanded(
       flex: 60,
       child: Container(
@@ -113,12 +121,12 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           borderRadius: BorderRadius.circular(size.height * 0.03),
           border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
         ),
-        child: _buildReportItems(size),
+        child: _buildReportItems(),
       ),
     );
   }
 
-  Widget _buildHeader(Size size) {
+  Widget _buildHeader() {
     return Expanded(
       flex: 20,
       child: Stack(
@@ -135,7 +143,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
               borderRadius: BorderRadius.circular(size.height * 0.03),
               border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
             ),
-            child: _buildHeaderStats(size),
+            child: _buildHeaderStats(),
           ),
           Positioned(
             bottom: -(size.height * 0.03),
@@ -157,46 +165,46 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Widget _buildHeaderStats(Size size) {
+  Widget _buildHeaderStats() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildHeaderItemInfo(size, 'Infected', '3,232,434'),
+        _buildHeaderItemInfo('Infected', '3,232,434'),
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
           indent: size.height * 0.035,
           endIndent: size.height * 0.035,
         ),
-        _buildHeaderItemInfo(size, 'Recovered', '2,232,434'),
+        _buildHeaderItemInfo('Recovered', '2,232,434'),
         VerticalDivider(
           color: MyColors.kLoblollyColor,
           thickness: 1.0,
           indent: size.height * 0.035,
           endIndent: size.height * 0.035,
         ),
-        _buildHeaderItemInfo(size, 'Deaths', '1,53,343'),
+        _buildHeaderItemInfo('Deaths', '1,53,343'),
       ],
     );
   }
 
-  Widget _buildHeaderItemInfo(Size size, String title, String count) {
+  Widget _buildHeaderItemInfo(String title, String count) {
     return Expanded(
       flex: 1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildHeaderTitle(title, size),
+          _buildHeaderTitle(title),
           addVerticalSpace(size.height * 0.01),
-          _buildHeaderCount(count, size),
+          _buildHeaderCount(count),
         ],
       ),
     );
   }
 
-  Widget _buildHeaderTitle(String text, Size size) {
+  Widget _buildHeaderTitle(String text) {
     return Text(
       text,
       style: Theme.of(context)
@@ -206,7 +214,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Widget _buildHeaderCount(String text, Size size) {
+  Widget _buildHeaderCount(String text) {
     return Text(
       text,
       style: Theme.of(context)
@@ -216,39 +224,39 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Widget _buildReportItems(Size size) {
+  Widget _buildReportItems() {
     return Column(
       children: [
-        _buildReportItem(size, 'Total Cases', '334,434,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Deaths', '4,434,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Recovered', '43,434,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Active', '2,434,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Critical', '434,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Today Deaths', '34,343'),
-        _addHorizontalDivider(size),
-        _buildReportItem(size, 'Today Recovered', '22,434,343'),
+        _buildReportItem('Total Cases', '334,434,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Deaths', '4,434,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Recovered', '43,434,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Active', '2,434,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Critical', '434,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Today Deaths', '34,343'),
+        _addHorizontalDivider(),
+        _buildReportItem('Today Recovered', '22,434,343'),
       ],
     );
   }
 
-  Widget _buildReportItem(Size size, String title, String count) {
+  Widget _buildReportItem(String title, String count) {
     return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildReportText(title, size),
-          _buildReportText(count, size),
+          _buildReportText(title),
+          _buildReportText(count),
         ],
       ),
     );
   }
 
-  Widget _buildReportText(String text, Size size) {
+  Widget _buildReportText(String text) {
     return Text(
       text,
       style: Theme.of(context).textTheme.headline4!.copyWith(
@@ -257,7 +265,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Divider _addHorizontalDivider(Size size) {
+  Divider _addHorizontalDivider() {
     return Divider(
       color: MyColors.kLoblollyLightColor,
       thickness: 1.0,
