@@ -140,7 +140,10 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => const MasterCountryScreen(),
+                        builder: (_) => MasterCountryScreen(
+                          countryName:
+                              _crRepo.countriesReportList![index].country!,
+                        ),
                       ),
                     );
                   },

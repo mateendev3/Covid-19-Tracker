@@ -1,8 +1,15 @@
+import 'package:covid_19_tracker/models/country_report.dart';
 import 'package:covid_19_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
+
+import '../services/repositories/countries_report_repository.dart';
 
 class MasterCountryScreen extends StatefulWidget {
-  const MasterCountryScreen({Key? key}) : super(key: key);
+  const MasterCountryScreen({Key? key, required this.countryName})
+      : super(key: key);
+  final String countryName;
 
   @override
   State<MasterCountryScreen> createState() => _MasterCountryScreenState();
@@ -10,14 +17,20 @@ class MasterCountryScreen extends StatefulWidget {
 
 class _MasterCountryScreenState extends State<MasterCountryScreen> {
   Size? _size;
+  late CountryReport countryReport;
+  final formatter = intl.NumberFormat.decimalPattern();
 
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
+    var crRepo = Provider.of<CountriesReportRepository>(context, listen: false);
+    countryReport = crRepo.countriesReportList!
+        .firstWhere((element) => element.country == widget.countryName);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Pakistan',
+          countryReport.country!,
           style: Theme.of(context).textTheme.headline2!.copyWith(
                 fontSize: _size!.height * 0.03,
               ),
@@ -68,8 +81,10 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
             child: CircleAvatar(
               radius: _size!.height * 0.05,
               child: ClipOval(
-                child: Image.asset(
-                  r'assets/images/pakistan.jpg',
+                child: Image.network(
+                  countryReport.countryFlag!,
+                  width: _size!.height * 0.1,
+                  height: _size!.height * 0.1,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -83,19 +98,40 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
   Widget _buildReportItems() {
     return Column(
       children: [
-        _buildReportItem('Total Cases', '334,434,343'),
+        _buildReportItem(
+          'Total Cases',
+          formatter.format(countryReport.totalCases),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Deaths', '4,434,343'),
+        _buildReportItem(
+          'Deaths',
+          formatter.format(countryReport.deaths),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Recovered', '43,434,343'),
+        _buildReportItem(
+          'Recovered',
+          formatter.format(countryReport.recovered),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Active', '2,434,343'),
+        _buildReportItem(
+          'Active',
+          formatter.format(countryReport.active),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Critical', '434,343'),
+        _buildReportItem(
+          'Critical',
+          formatter.format(countryReport.critical),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Today Deaths', '34,343'),
+        _buildReportItem(
+          'Today Deaths',
+          formatter.format(countryReport.todayDeaths),
+        ),
         _addHorizontalDivider(),
-        _buildReportItem('Today Recovered', '22,434,343'),
+        _buildReportItem(
+          'Today Recovered',
+          formatter.format(countryReport.todayRecovered),
+        ),
       ],
     );
   }
