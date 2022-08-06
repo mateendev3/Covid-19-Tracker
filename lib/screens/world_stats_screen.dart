@@ -1,6 +1,7 @@
-import 'package:covid_19_tracker/utils/constants.dart';
-import 'package:covid_19_tracker/utils/helper_widgets.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/constants.dart';
+import '../utils/helper_widgets.dart';
 
 class WorldStatusScreen extends StatefulWidget {
   const WorldStatusScreen({Key? key}) : super(key: key);
