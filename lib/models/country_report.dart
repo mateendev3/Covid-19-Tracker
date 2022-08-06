@@ -5,6 +5,7 @@ class CountryReport {
   int? active;
   int? critical;
   String? country;
+  String? countryFlag;
   int? deaths;
   int? recovered;
   int? totalCases;
@@ -14,6 +15,7 @@ class CountryReport {
     this.active,
     this.critical,
     this.country,
+    this.countryFlag,
     this.deaths,
     this.recovered,
     this.totalCases,
@@ -25,6 +27,7 @@ class CountryReport {
     int? active,
     int? critical,
     String? country,
+    String? countryFlag,
     int? deaths,
     int? recovered,
     int? totalCases,
@@ -35,6 +38,7 @@ class CountryReport {
       active: active ?? this.active,
       critical: critical ?? this.critical,
       country: country ?? this.country,
+      countryFlag: countryFlag ?? this.countryFlag,
       deaths: deaths ?? this.deaths,
       recovered: recovered ?? this.recovered,
       totalCases: totalCases ?? this.totalCases,
@@ -48,6 +52,7 @@ class CountryReport {
       'active': active,
       'critical': critical,
       'country': country,
+      'countryFlag': countryFlag,
       'deaths': deaths,
       'recovered': recovered,
       'totalCases': totalCases,
@@ -61,6 +66,9 @@ class CountryReport {
       active: map['active'] != null ? map['active'] as int : null,
       critical: map['critical'] != null ? map['critical'] as int : null,
       country: map['country'] != null ? map['country'] as String : null,
+      countryFlag: map['countryInfo']['flag'] != null
+          ? map['countryInfo']['flag'] as String
+          : null,
       deaths: map['deaths'] != null ? map['deaths'] as int : null,
       recovered: map['recovered'] != null ? map['recovered'] as int : null,
       totalCases: map['cases'] != null ? map['cases'] as int : null,
@@ -78,7 +86,7 @@ class CountryReport {
 
   @override
   String toString() {
-    return 'CountryReport(active: $active, critical: $critical, country: $country, deaths: $deaths, recovered: $recovered, totalCases: $totalCases, todayDeaths: $todayDeaths, todayRecovered: $todayRecovered)';
+    return '\n\nCountryReport(active: $active, critical: $critical, country: $country, countryFlag: $countryFlag, deaths: $deaths, recovered: $recovered, totalCases: $totalCases, todayDeaths: $todayDeaths, todayRecovered: $todayRecovered)';
   }
 
   @override
@@ -88,6 +96,7 @@ class CountryReport {
     return other.active == active &&
         other.critical == critical &&
         other.country == country &&
+        other.countryFlag == countryFlag &&
         other.deaths == deaths &&
         other.recovered == recovered &&
         other.totalCases == totalCases &&
@@ -100,6 +109,7 @@ class CountryReport {
     return active.hashCode ^
         critical.hashCode ^
         country.hashCode ^
+        countryFlag.hashCode ^
         deaths.hashCode ^
         recovered.hashCode ^
         totalCases.hashCode ^

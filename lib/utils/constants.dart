@@ -10,3 +10,9 @@ class MyColors {
   static const kBlack = Colors.black;
   static const kWhite = Colors.white;
 }
+
+class ApiConstants {
+  static const kBaseUrl = 'https://disease.sh/v3/covid-19';
+  static const kAllEndPoint = '/all';
+  static const kCountriesEndPoint = '/countries';
+}

@@ -1,4 +1,5 @@
 import 'package:covid_19_tracker/screens/search_country_screen.dart';
+import 'package:covid_19_tracker/services/apis/get_countries_report_api.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
@@ -15,6 +16,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   Size? _size;
   @override
   Widget build(BuildContext context) {
+    GetCountriesReportApi().fetchCountriesReport();
     _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
