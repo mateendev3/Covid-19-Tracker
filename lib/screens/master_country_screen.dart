@@ -24,8 +24,6 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
         ),
         automaticallyImplyLeading: true,
         centerTitle: true,
-        // elevation: 2.0,
-        // shadowColor: MyColors.kCodGrayColor,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: _size!.height * 0.03),

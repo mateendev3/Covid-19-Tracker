@@ -44,7 +44,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       child: Column(
         children: [
           _buildSearchField(),
-          addVerticalSpace(_size!.height * 0.010),
+          addVerticalSpace(_size!.height * 0.015),
           _buildListItems(),
         ],
       ),
