@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:covid_19_tracker/services/repositories/countries_report_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/repositories/world_report_repository.dart';
 import '../utils/helper_widgets.dart';
 import 'world_stats_screen.dart';
 
@@ -26,7 +29,19 @@ class _SplashScreenState extends State<SplashScreen>
       const Duration(seconds: 3),
       () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const WorldStatusScreen()),
+        MaterialPageRoute(
+          builder: (_) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider<WorldReportRepository>(
+                create: (_) => WorldReportRepository(),
+              ),
+              ChangeNotifierProvider<CountriesReportRepository>(
+                create: (_) => CountriesReportRepository(),
+              )
+            ],
+            child: const WorldStatusScreen(),
+          ),
+        ),
       ),
     );
   }

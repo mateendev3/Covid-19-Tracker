@@ -86,7 +86,7 @@ class CountryReport {
 
   @override
   String toString() {
-    return '\n\nCountryReport(active: $active, critical: $critical, country: $country, countryFlag: $countryFlag, deaths: $deaths, recovered: $recovered, totalCases: $totalCases, todayDeaths: $todayDeaths, todayRecovered: $todayRecovered)';
+    return 'CountryReport(active: $active, critical: $critical, country: $country, countryFlag: $countryFlag, deaths: $deaths, recovered: $recovered, totalCases: $totalCases, todayDeaths: $todayDeaths, todayRecovered: $todayRecovered)';
   }
 
   @override
