@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/splash_screen.dart';
+import 'services/repositories/countries_report_repository.dart';
+import 'services/repositories/world_report_repository.dart';
 import 'utils/theme_constants.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<WorldReportRepository>(
+        create: (_) => WorldReportRepository(),
+      ),
+      ChangeNotifierProvider<CountriesReportRepository>(
+        create: (_) => CountriesReportRepository(),
+      )
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

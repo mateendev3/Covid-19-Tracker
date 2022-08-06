@@ -1,9 +1,9 @@
-import 'package:covid_19_tracker/services/repositories/countries_report_repository.dart';
-import 'package:covid_19_tracker/services/repositories/world_report_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
+import '../services/repositories/countries_report_repository.dart';
+import '../services/repositories/world_report_repository.dart';
 import '../utils/constants.dart';
 import '../utils/helper_widgets.dart';
 import 'search_country_screen.dart';
@@ -16,8 +16,6 @@ class WorldStatusScreen extends StatefulWidget {
 }
 
 class _WorldStatusScreenState extends State<WorldStatusScreen> {
-  final formatter = intl.NumberFormat.decimalPattern();
-
   @override
   void initState() {
     super.initState();
@@ -30,6 +28,8 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
   Size? _size;
   late WorldReportRepository _wrRepo;
   late CountriesReportRepository _crRepo;
+  final formatter = intl.NumberFormat.decimalPattern();
+
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;

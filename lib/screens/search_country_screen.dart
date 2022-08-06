@@ -1,7 +1,10 @@
-import 'package:covid_19_tracker/utils/helper_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart' as intl;
 
+import '../services/repositories/countries_report_repository.dart';
 import '../utils/constants.dart';
+import '../utils/helper_widgets.dart';
 import 'master_country_screen.dart';
 
 class SearchCountryScreen extends StatefulWidget {
@@ -14,6 +17,8 @@ class SearchCountryScreen extends StatefulWidget {
 class _SearchCountryScreenState extends State<SearchCountryScreen> {
   Size? _size;
   late final TextEditingController _ecSearchCountry;
+  late CountriesReportRepository _crRepo;
+  final formatter = intl.NumberFormat.decimalPattern();
 
   @override
   void initState() {
@@ -24,6 +29,8 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
+    _crRepo = Provider.of<CountriesReportRepository>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -60,7 +67,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
   Widget _buildListItems() {
     return Expanded(
       child: ListView.builder(
-        itemCount: 50,
+        itemCount: _crRepo.countriesReportList!.length,
         itemBuilder: (context, index) {
           return _buildListItem(index);
         },
@@ -137,7 +144,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
                       ),
                     );
                   },
-                  child: _buildListItemContent(context),
+                  child: _buildListItemContent(context, index),
                 ),
               ),
             ),
@@ -147,7 +154,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
     );
   }
 
-  Widget _buildListItemContent(BuildContext context) {
+  Widget _buildListItemContent(BuildContext context, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -156,14 +163,19 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
           child: CircleAvatar(
             radius: _size!.height * 0.03,
             child: ClipOval(
-              child: Image.asset(
-                r'assets/images/pakistan.jpg',
+              child: Image.network(
+                _crRepo.countriesReportList![index].countryFlag!,
+                width: _size!.height * 0.06,
+                height: _size!.height * 0.06,
                 fit: BoxFit.cover,
               ),
             ),
           ),
         ),
-        _buildCNameAndStats('Pakistan', 'Effected: 3,434,332'),
+        _buildCNameAndStats(
+          _crRepo.countriesReportList![index].country!,
+          'Effected: ${formatter.format(_crRepo.countriesReportList![index].totalCases!)}',
+        ),
         IconButton(
           icon: const Icon(Icons.arrow_forward),
           onPressed: () {},
@@ -195,6 +207,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
           .textTheme
           .headline4!
           .copyWith(fontSize: _size!.height * 0.023),
+      maxLines: 1,
     );
   }
 
