@@ -24,8 +24,8 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
         ),
         automaticallyImplyLeading: true,
         centerTitle: true,
-        elevation: 2.0,
-        shadowColor: MyColors.kCodGrayColor,
+        // elevation: 2.0,
+        // shadowColor: MyColors.kCodGrayColor,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: _size!.height * 0.03),
@@ -37,24 +37,47 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
   Widget _buildBody(BuildContext context) {
     return Column(
       children: [
-        const Expanded(flex: 10, child: SizedBox()),
+        const Expanded(flex: 15, child: SizedBox()),
         _buildReportDetails(),
-        const Expanded(flex: 10, child: SizedBox()),
+        const Expanded(flex: 15, child: SizedBox()),
       ],
     );
   }
 
   Widget _buildReportDetails() {
     return Expanded(
-      flex: 80,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: _size!.height * 0.015, horizontal: _size!.height * 0.03),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(_size!.height * 0.03),
-          border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
-        ),
-        child: _buildReportItems(),
+      flex: 70,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              top: _size!.height * 0.065,
+              bottom: _size!.height * 0.015,
+              left: _size!.height * 0.03,
+              right: _size!.height * 0.03,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(_size!.height * 0.03),
+              border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
+            ),
+            child: _buildReportItems(),
+          ),
+          Positioned(
+            left: 0.0,
+            right: 0.0,
+            top: -(_size!.height * 0.05),
+            child: CircleAvatar(
+              radius: _size!.height * 0.05,
+              child: ClipOval(
+                child: Image.asset(
+                  r'assets/images/pakistan.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
