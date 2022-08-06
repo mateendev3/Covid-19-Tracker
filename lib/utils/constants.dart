@@ -7,4 +7,5 @@ class MyColors {
   static const kRollingStoneColor = Color(0xFF7C8186);
   static const kDoveGrayColor = Color(0xFF626262);
   static const kCodGrayColor = Color(0xFF090909);
+  static const kBlack = Colors.black;
 }
