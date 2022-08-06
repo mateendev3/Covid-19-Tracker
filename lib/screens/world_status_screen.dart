@@ -22,6 +22,12 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
               ),
         ),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
       ),
       body: _buildBody(size),
     );
@@ -33,9 +39,9 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       padding: EdgeInsets.symmetric(horizontal: size.height * 0.015),
       child: Column(
         children: [
-          // const Expanded(flex: 8, child: SizedBox()),
-          // _buildHeading(size, 'Pakistan'),
+          // const Expanded(flex: 3, child: SizedBox()),
           _buildHeader(size),
+          const Expanded(flex: 5, child: SizedBox()),
           _buildHeading(size, 'World Reports'),
           _buildReportDetails(size),
           _buildCountryButton(size),
@@ -76,7 +82,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Container _buildHeading(Size size, String heading) {
+  Widget _buildHeading(Size size, String heading) {
     return Container(
       margin: EdgeInsets.only(
         top: size.height * 0.02,
@@ -100,7 +106,8 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       flex: 60,
       child: Container(
         margin: EdgeInsets.all(size.height * 0.015),
-        padding: EdgeInsets.all(size.height * 0.015),
+        padding: EdgeInsets.symmetric(
+            vertical: size.height * 0.015, horizontal: size.height * 0.03),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(size.height * 0.03),
           border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
@@ -110,16 +117,41 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Expanded _buildHeader(Size size) {
+  Widget _buildHeader(Size size) {
     return Expanded(
       flex: 20,
-      child: Container(
-        margin: EdgeInsets.all(size.height * 0.015),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.height * 0.03),
-          border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
-        ),
-        child: _buildHeaderStats(size),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              top: size.height * 0.015,
+              left: size.height * 0.015,
+              right: size.height * 0.015,
+            ),
+            padding: EdgeInsets.only(bottom: size.height * 0.02),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.height * 0.03),
+              border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
+            ),
+            child: _buildHeaderStats(size),
+          ),
+          Positioned(
+            bottom: -(size.height * 0.03),
+            right: 0.0,
+            left: 0.0,
+            child: CircleAvatar(
+              radius: size.height * 0.03,
+              // backgroundImage: const AssetImage(r'assets/images/pakistan.jpg'),
+              child: ClipOval(
+                child: Image.asset(
+                  r'assets/images/pakistan.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -148,7 +180,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
     );
   }
 
-  Expanded _buildHeaderItemInfo(Size size, String title, String count) {
+  Widget _buildHeaderItemInfo(Size size, String title, String count) {
     return Expanded(
       flex: 1,
       child: Column(
