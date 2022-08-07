@@ -53,7 +53,9 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       ),
       body: _wrRepo.worldReport == null || _crRepo.countriesReportList == null
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: MyColors.kCodGrayColor,
+              ),
             )
           : _buildBody(),
     );
@@ -173,6 +175,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             right: 0.0,
             left: 0.0,
             child: CircleAvatar(
+              backgroundColor: Colors.transparent,
               radius: _size!.height * 0.03,
               child: ClipOval(
                 child: Image.network(
@@ -182,6 +185,15 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
                   width: _size!.height * 0.06,
                   height: _size!.height * 0.06,
                   fit: BoxFit.cover,
+                  loadingBuilder:
+                      (context, child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: MyColors.kCodGrayColor,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -329,6 +341,16 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       thickness: 1.0,
       indent: _size!.height * 0.08,
       endIndent: _size!.height * 0.08,
+    );
+  }
+
+  Widget _buildShimmer() {
+    return Column(
+      children: const [
+        Expanded(flex: 20, child: SizedBox()),
+        Expanded(flex: 60, child: SizedBox()),
+        Expanded(flex: 12, child: SizedBox()),
+      ],
     );
   }
 }

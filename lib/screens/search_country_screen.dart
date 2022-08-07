@@ -165,12 +165,22 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
           padding: EdgeInsets.symmetric(horizontal: _size!.width * 0.03),
           child: CircleAvatar(
             radius: _size!.height * 0.03,
+            backgroundColor: Colors.transparent,
             child: ClipOval(
               child: Image.network(
                 _crRepo.countriesReportList![index].countryFlag!,
                 width: _size!.height * 0.06,
                 height: _size!.height * 0.06,
                 fit: BoxFit.cover,
+                loadingBuilder:
+                    (context, child, ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: MyColors.kCodGrayColor,
+                    ),
+                  );
+                },
               ),
             ),
           ),

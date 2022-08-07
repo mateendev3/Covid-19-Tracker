@@ -80,12 +80,22 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
             top: -(_size!.height * 0.05),
             child: CircleAvatar(
               radius: _size!.height * 0.05,
+              backgroundColor: Colors.transparent,
               child: ClipOval(
                 child: Image.network(
                   countryReport.countryFlag!,
                   width: _size!.height * 0.1,
                   height: _size!.height * 0.1,
                   fit: BoxFit.cover,
+                  loadingBuilder:
+                      (context, child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: MyColors.kCodGrayColor,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
