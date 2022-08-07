@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import '../utils/constants.dart';
 import '../utils/helper_widgets.dart';
-import 'world_stats_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -24,12 +24,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     Timer(
       const Duration(seconds: 5),
-      () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const WorldStatusScreen(),
-        ),
-      ),
+      () => Navigator.popAndPushNamed(context, MyRoutes.kHome),
     );
   }
 

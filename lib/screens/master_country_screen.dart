@@ -1,10 +1,10 @@
-import 'package:covid_19_tracker/models/country_report.dart';
-import 'package:covid_19_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
+import '../models/country_report.dart';
 import '../services/repositories/countries_report_repository.dart';
+import '../utils/constants.dart';
 
 class MasterCountryScreen extends StatefulWidget {
   const MasterCountryScreen({Key? key, required this.countryName})
@@ -70,7 +70,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(_size!.height * 0.03),
-              border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
+              border: Border.all(color: MyColors.kLoblolly, width: 1.0),
             ),
             child: _buildReportItems(),
           ),
@@ -92,7 +92,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
                     if (loadingProgress == null) return child;
                     return const Center(
                       child: CircularProgressIndicator(
-                        color: MyColors.kCodGrayColor,
+                        color: MyColors.kCodGray,
                       ),
                     );
                   },
@@ -169,7 +169,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
 
   Widget _addHorizontalDivider() {
     return Divider(
-      color: MyColors.kLoblollyLightColor,
+      color: MyColors.kLoblollyLight,
       thickness: 1.0,
       indent: _size!.height * 0.08,
       endIndent: _size!.height * 0.08,

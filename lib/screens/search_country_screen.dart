@@ -95,7 +95,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100.0),
           borderSide: const BorderSide(
-            color: MyColors.kCodGrayColor,
+            color: MyColors.kCodGray,
             width: 1.0,
           ),
         ),
@@ -128,9 +128,9 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: EdgeInsets.only(top: _size!.height * 0.015),
       decoration: BoxDecoration(
-        color: MyColors.kCodGrayColor,
+        color: MyColors.kCodGray,
         borderRadius: BorderRadius.circular(_size!.height * 0.03),
-        border: Border.all(color: MyColors.kCodGrayColor, width: 1.0),
+        border: Border.all(color: MyColors.kCodGray, width: 1.0),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -141,13 +141,13 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
               clipBehavior: Clip.antiAlias,
               width: constraints.maxWidth * 0.97,
               decoration: BoxDecoration(
-                color: MyColors.kPorcelainColor,
+                color: MyColors.kPorcelain,
                 borderRadius: BorderRadius.circular(_size!.height * 0.03),
-                border: Border.all(color: MyColors.kCodGrayColor, width: 0.2),
+                border: Border.all(color: MyColors.kCodGray, width: 0.2),
               ),
               alignment: Alignment.centerLeft,
               child: Material(
-                color: MyColors.kPorcelainColor,
+                color: MyColors.kPorcelain,
                 child: InkWell(
                   splashColor: MyColors.kWhite,
                   onTap: () {
@@ -190,7 +190,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
                   if (loadingProgress == null) return child;
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: MyColors.kCodGrayColor,
+                      color: MyColors.kCodGray,
                     ),
                   );
                 },

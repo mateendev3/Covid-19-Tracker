@@ -8,14 +8,14 @@ import '../utils/constants.dart';
 import '../utils/helper_widgets.dart';
 import 'search_country_screen.dart';
 
-class WorldStatusScreen extends StatefulWidget {
-  const WorldStatusScreen({Key? key}) : super(key: key);
+class WorldStatsScreen extends StatefulWidget {
+  const WorldStatsScreen({Key? key}) : super(key: key);
 
   @override
-  State<WorldStatusScreen> createState() => _WorldStatusScreenState();
+  State<WorldStatsScreen> createState() => _WorldStatsScreenState();
 }
 
-class _WorldStatusScreenState extends State<WorldStatusScreen> {
+class _WorldStatsScreenState extends State<WorldStatsScreen> {
   @override
   void initState() {
     super.initState();
@@ -54,7 +54,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
       body: _wrRepo.worldReport == null || _crRepo.countriesReportList == null
           ? const Center(
               child: CircularProgressIndicator(
-                backgroundColor: MyColors.kCodGrayColor,
+                backgroundColor: MyColors.kCodGray,
               ),
             )
           : _buildBody(),
@@ -99,15 +99,15 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             },
             style: ElevatedButton.styleFrom(
               enableFeedback: true,
-              primary: MyColors.kCodGrayColor,
-              onPrimary: MyColors.kPorcelainColor,
+              primary: MyColors.kCodGray,
+              onPrimary: MyColors.kPorcelain,
               fixedSize: const Size.fromWidth(double.infinity),
             ),
             child: Text(
               'Track Countries',
               style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontSize: _size!.height * 0.02,
-                    color: MyColors.kPorcelainColor,
+                    color: MyColors.kPorcelain,
                   ),
             ),
           ),
@@ -144,7 +144,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             vertical: _size!.height * 0.015, horizontal: _size!.height * 0.03),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_size!.height * 0.03),
-          border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
+          border: Border.all(color: MyColors.kLoblolly, width: 1.0),
         ),
         child: _buildReportItems(),
       ),
@@ -166,7 +166,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
             padding: EdgeInsets.only(bottom: _size!.height * 0.02),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(_size!.height * 0.03),
-              border: Border.all(color: MyColors.kLoblollyColor, width: 1.0),
+              border: Border.all(color: MyColors.kLoblolly, width: 1.0),
             ),
             child: _buildHeaderStats(),
           ),
@@ -190,7 +190,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
                     if (loadingProgress == null) return child;
                     return const Center(
                       child: CircularProgressIndicator(
-                        color: MyColors.kCodGrayColor,
+                        color: MyColors.kCodGray,
                       ),
                     );
                   },
@@ -215,7 +215,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           formatter.format(countryReport.totalCases),
         ),
         VerticalDivider(
-          color: MyColors.kLoblollyColor,
+          color: MyColors.kLoblolly,
           thickness: 1.0,
           indent: _size!.height * 0.035,
           endIndent: _size!.height * 0.035,
@@ -225,7 +225,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
           formatter.format(countryReport.recovered),
         ),
         VerticalDivider(
-          color: MyColors.kLoblollyColor,
+          color: MyColors.kLoblolly,
           thickness: 1.0,
           indent: _size!.height * 0.035,
           endIndent: _size!.height * 0.035,
@@ -337,7 +337,7 @@ class _WorldStatusScreenState extends State<WorldStatusScreen> {
 
   Widget _addHorizontalDivider() {
     return Divider(
-      color: MyColors.kLoblollyLightColor,
+      color: MyColors.kLoblollyLight,
       thickness: 1.0,
       indent: _size!.height * 0.08,
       endIndent: _size!.height * 0.08,

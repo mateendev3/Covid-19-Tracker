@@ -8,7 +8,7 @@ final ThemeData covidTheme = ThemeData(
   primaryColor: Colors.black,
   colorScheme: _getCustomColorScheme(),
   textTheme: _getTextTheme(),
-  scaffoldBackgroundColor: MyColors.kPorcelainColor,
+  scaffoldBackgroundColor: MyColors.kPorcelain,
   appBarTheme: _getAppBarTheme(),
 );
 
@@ -17,7 +17,7 @@ AppBarTheme _getAppBarTheme() {
     elevation: 0.0,
     shadowColor: Colors.transparent,
     titleTextStyle: GoogleFonts.playfairDisplay(
-      color: MyColors.kCodGrayColor,
+      color: MyColors.kCodGray,
       fontSize: 40.0,
       fontWeight: FontWeight.w500,
     ),
@@ -27,25 +27,25 @@ AppBarTheme _getAppBarTheme() {
 TextTheme _getTextTheme() {
   return TextTheme(
     headline2: GoogleFonts.playfairDisplay(
-      color: MyColors.kCodGrayColor,
+      color: MyColors.kCodGray,
       fontSize: 40.0,
       fontWeight: FontWeight.w600,
     ),
     headline3: GoogleFonts.poppins(
-      color: MyColors.kCodGrayColor,
+      color: MyColors.kCodGray,
       fontSize: 22.0,
     ),
     headline4: GoogleFonts.poppins(
-      color: MyColors.kCodGrayColor,
+      color: MyColors.kCodGray,
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
     ),
     headline6: GoogleFonts.poppins(
-      color: MyColors.kRollingStoneColor,
+      color: MyColors.kRollingStone,
       fontSize: 16.0,
     ),
     caption: GoogleFonts.poppins(
-      color: MyColors.kCodGrayColor,
+      color: MyColors.kCodGray,
       fontWeight: FontWeight.w500,
       fontSize: 14.0,
     ),
@@ -54,9 +54,9 @@ TextTheme _getTextTheme() {
 
 ColorScheme _getCustomColorScheme() {
   return const ColorScheme.light(
-    primary: MyColors.kPorcelainColor,
-    onPrimary: MyColors.kCodGrayColor,
+    primary: MyColors.kPorcelain,
+    onPrimary: MyColors.kCodGray,
     onError: Colors.redAccent,
-    background: MyColors.kPorcelainColor,
+    background: MyColors.kPorcelain,
   );
 }
