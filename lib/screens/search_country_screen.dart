@@ -69,7 +69,17 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       child: ListView.builder(
         itemCount: _crRepo.countriesReportList!.length,
         itemBuilder: (context, index) {
-          return _buildListItem(index);
+          final String countryName =
+              _crRepo.countriesReportList![index].country!;
+          if (_ecSearchCountry.text.isEmpty) {
+            return _buildListItem(index);
+          } else if (countryName
+              .toLowerCase()
+              .contains(_ecSearchCountry.text.toLowerCase())) {
+            return _buildListItem(index);
+          } else {
+            return const SizedBox();
+          }
         },
       ),
     );
@@ -78,6 +88,9 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
   Widget _buildSearchField() {
     return TextField(
       controller: _ecSearchCountry,
+      onChanged: (String? value) {
+        setState(() {});
+      },
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(100.0),
