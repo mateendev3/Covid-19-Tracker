@@ -40,7 +40,6 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
               ),
         ),
         automaticallyImplyLeading: true,
-        // backgroundColor: Colors.blue,
       ),
       body: _buildBody(),
     );
@@ -151,6 +150,8 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
                 child: InkWell(
                   splashColor: MyColors.kWhite,
                   onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    _ecSearchCountry.clear();
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => MasterCountryScreen(

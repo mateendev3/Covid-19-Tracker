@@ -29,35 +29,35 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
   late WorldReportRepository _wrRepo;
   late CountriesReportRepository _crRepo;
   final formatter = intl.NumberFormat.decimalPattern();
+  String selectedCountry = 'Pakistan';
 
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
     _wrRepo = Provider.of<WorldReportRepository>(context, listen: true);
     _crRepo = Provider.of<CountriesReportRepository>(context, listen: true);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Covid-19 Tracker',
-          style: Theme.of(context).textTheme.headline2!.copyWith(
-                fontSize: _size!.height * 0.04,
-              ),
-        ),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
+
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Covid-19 Tracker',
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                  fontSize: _size!.height * 0.04,
+                ),
           ),
-        ],
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+        ),
+        body: _wrRepo.worldReport == null || _crRepo.countriesReportList == null
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: MyColors.kCodGray,
+                ),
+              )
+            : _buildBody(),
       ),
-      body: _wrRepo.worldReport == null || _crRepo.countriesReportList == null
-          ? const Center(
-              child: CircularProgressIndicator(
-                backgroundColor: MyColors.kCodGray,
-              ),
-            )
-          : _buildBody(),
     );
   }
 
@@ -74,44 +74,6 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
           _buildReportDetails(),
           _buildCountryButton(),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCountryButton() {
-    return Expanded(
-      flex: 12,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: _size!.height * 0.018,
-          horizontal: _size!.width * 0.01,
-        ),
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: _size!.height * 0.015),
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => const SearchCountryScreen(),
-                ),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              enableFeedback: true,
-              primary: MyColors.kCodGray,
-              onPrimary: MyColors.kPorcelain,
-              fixedSize: const Size.fromWidth(double.infinity),
-            ),
-            child: Text(
-              'Track Countries',
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    fontSize: _size!.height * 0.02,
-                    color: MyColors.kPorcelain,
-                  ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -151,6 +113,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
+  /// methods to build header.
   Widget _buildHeader() {
     return Expanded(
       flex: 20,
@@ -174,26 +137,33 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
             bottom: -(_size!.height * 0.03),
             right: 0.0,
             left: 0.0,
-            child: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              radius: _size!.height * 0.03,
-              child: ClipOval(
-                child: Image.network(
-                  _crRepo.countriesReportList!
-                      .firstWhere((element) => element.country == 'Pakistan')
-                      .countryFlag!,
-                  width: _size!.height * 0.06,
-                  height: _size!.height * 0.06,
-                  fit: BoxFit.cover,
-                  loadingBuilder:
-                      (context, child, ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: MyColors.kCodGray,
-                      ),
-                    );
-                  },
+            child: GestureDetector(
+              onTap: () async {
+                selectedCountry = await _showSelectCountryDialog();
+                setState(() {});
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: _size!.height * 0.03,
+                child: ClipOval(
+                  child: Image.network(
+                    _crRepo.countriesReportList!
+                        .firstWhere(
+                            (element) => element.country == selectedCountry)
+                        .countryFlag!,
+                    width: _size!.height * 0.06,
+                    height: _size!.height * 0.06,
+                    fit: BoxFit.cover,
+                    loadingBuilder:
+                        (context, child, ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: MyColors.kCodGray,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -203,9 +173,47 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
+  // method to show dialog to change country stats
+  _showSelectCountryDialog() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(
+            'Select Country',
+            style: Theme.of(context)
+                .textTheme
+                .headline3!
+                .copyWith(fontSize: 18.0, fontWeight: FontWeight.w600),
+          ),
+          content: SizedBox(
+            height: _size!.height * 0.6,
+            width: _size!.width * 0.6,
+            child: ListView.builder(
+              itemCount: _crRepo.countriesReportList!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_crRepo.countriesReportList![index].country!),
+                  hoverColor: MyColors.kPorcelain,
+                  tileColor: MyColors.kWhite,
+                  selectedColor: MyColors.kPorcelain,
+                  onTap: () {
+                    Navigator.pop(
+                        context, _crRepo.countriesReportList![index].country);
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildHeaderStats() {
     var countryReport = _crRepo.countriesReportList!
-        .firstWhere((element) => element.country == 'Pakistan');
+        .firstWhere((element) => element.country == selectedCountry);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,9 +271,9 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
-  Widget _buildHeaderCount(String text) {
+  Widget _buildHeaderCount(String count) {
     return Text(
-      text,
+      count,
       style: Theme.of(context)
           .textTheme
           .headline4!
@@ -273,6 +281,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
+  // methods to build world report
   Widget _buildReportItems() {
     return Column(
       children: [
@@ -335,6 +344,44 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
+  Widget _buildCountryButton() {
+    return Expanded(
+      flex: 12,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: _size!.height * 0.018,
+          horizontal: _size!.width * 0.01,
+        ),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: _size!.height * 0.015),
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const SearchCountryScreen(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              enableFeedback: true,
+              primary: MyColors.kCodGray,
+              onPrimary: MyColors.kPorcelain,
+              fixedSize: const Size.fromWidth(double.infinity),
+            ),
+            child: Text(
+              'Track Countries',
+              style: Theme.of(context).textTheme.headline4!.copyWith(
+                    fontSize: _size!.height * 0.02,
+                    color: MyColors.kPorcelain,
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _addHorizontalDivider() {
     return Divider(
       color: MyColors.kLoblollyLight,
@@ -344,13 +391,39 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
     );
   }
 
-  Widget _buildShimmer() {
-    return Column(
-      children: const [
-        Expanded(flex: 20, child: SizedBox()),
-        Expanded(flex: 60, child: SizedBox()),
-        Expanded(flex: 12, child: SizedBox()),
-      ],
-    );
+  // method, will be called when back button is pressed.
+  Future<bool> _onBackPressed() async {
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              'Are you sure?',
+              style: Theme.of(context).textTheme.headline4!,
+            ),
+            content: const Text('Do you want to exit an App'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                style: TextButton.styleFrom(
+                  primary: MyColors.kCodGray,
+                ),
+                child: const Text('No'),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                style: TextButton.styleFrom(
+                  primary: MyColors.kCodGray,
+                ),
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 }

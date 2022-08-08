@@ -1,4 +1,3 @@
-import 'package:covid_19_tracker/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +6,7 @@ import 'screens/splash_screen.dart';
 import 'screens/world_stats_screen.dart';
 import 'services/repositories/countries_report_repository.dart';
 import 'services/repositories/world_report_repository.dart';
+import 'utils/constants.dart';
 import 'utils/theme_constants.dart';
 
 void main() {

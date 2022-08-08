@@ -78,6 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+  // method to logo with animation.
   Widget _buildAnimatedLogo(Size size) {
     return AnimatedBuilder(
       animation: _animationController,
