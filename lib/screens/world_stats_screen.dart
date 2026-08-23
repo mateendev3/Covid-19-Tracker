@@ -9,7 +9,7 @@ import '../utils/helper_widgets.dart';
 import 'search_country_screen.dart';
 
 class WorldStatsScreen extends StatefulWidget {
-  const WorldStatsScreen({Key? key}) : super(key: key);
+  const WorldStatsScreen({super.key});
 
   @override
   State<WorldStatsScreen> createState() => _WorldStatsScreenState();
@@ -43,7 +43,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
         appBar: AppBar(
           title: Text(
             'Covid-19 Tracker',
-            style: Theme.of(context).textTheme.headline2!.copyWith(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
                   fontSize: _size!.height * 0.04,
                 ),
           ),
@@ -89,7 +89,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
       alignment: Alignment.centerLeft,
       child: Text(
         heading,
-        style: Theme.of(context).textTheme.headline3!.copyWith(
+        style: Theme.of(context).textTheme.displaySmall!.copyWith(
               fontSize: _size!.height * 0.03,
               fontWeight: FontWeight.w600,
             ),
@@ -184,7 +184,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
             'Select Country',
             style: Theme.of(context)
                 .textTheme
-                .headline3!
+                .displaySmall!
                 .copyWith(fontSize: 18.0, fontWeight: FontWeight.w600),
           ),
           content: SizedBox(
@@ -266,7 +266,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
       text,
       style: Theme.of(context)
           .textTheme
-          .headline6!
+          .titleLarge!
           .copyWith(fontSize: _size!.height * 0.02),
     );
   }
@@ -276,7 +276,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
       count,
       style: Theme.of(context)
           .textTheme
-          .headline4!
+          .headlineMedium!
           .copyWith(fontSize: _size!.height * 0.02),
     );
   }
@@ -338,7 +338,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
   Widget _buildReportText(String text) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.headline4!.copyWith(
+      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
             fontSize: _size!.height * 0.02,
           ),
     );
@@ -364,14 +364,12 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
               );
             },
             style: ElevatedButton.styleFrom(
-              enableFeedback: true,
-              primary: MyColors.kCodGray,
-              onPrimary: MyColors.kPorcelain,
+              foregroundColor: MyColors.kPorcelain, backgroundColor: MyColors.kCodGray, enableFeedback: true,
               fixedSize: const Size.fromWidth(double.infinity),
             ),
             child: Text(
               'Track Countries',
-              style: Theme.of(context).textTheme.headline4!.copyWith(
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontSize: _size!.height * 0.02,
                     color: MyColors.kPorcelain,
                   ),
@@ -398,7 +396,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
           builder: (context) => AlertDialog(
             title: Text(
               'Are you sure?',
-              style: Theme.of(context).textTheme.headline4!,
+              style: Theme.of(context).textTheme.headlineMedium!,
             ),
             content: const Text('Do you want to exit an App'),
             actions: <Widget>[
@@ -407,7 +405,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
                   Navigator.of(context).pop(false);
                 },
                 style: TextButton.styleFrom(
-                  primary: MyColors.kCodGray,
+                  foregroundColor: MyColors.kCodGray,
                 ),
                 child: const Text('No'),
               ),
@@ -417,7 +415,7 @@ class _WorldStatsScreenState extends State<WorldStatsScreen> {
                   Navigator.of(context).pop(true);
                 },
                 style: TextButton.styleFrom(
-                  primary: MyColors.kCodGray,
+                  foregroundColor: MyColors.kCodGray,
                 ),
                 child: const Text('Yes'),
               ),

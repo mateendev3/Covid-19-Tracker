@@ -8,7 +8,7 @@ import '../utils/helper_widgets.dart';
 import 'master_country_screen.dart';
 
 class SearchCountryScreen extends StatefulWidget {
-  const SearchCountryScreen({Key? key}) : super(key: key);
+  const SearchCountryScreen({super.key});
 
   @override
   State<SearchCountryScreen> createState() => _SearchCountryScreenState();
@@ -35,7 +35,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       appBar: AppBar(
         title: Text(
           'Track Country',
-          style: Theme.of(context).textTheme.headline2!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontSize: _size!.height * 0.03,
               ),
         ),
@@ -232,7 +232,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       text,
       style: Theme.of(context)
           .textTheme
-          .headline4!
+          .headlineMedium!
           .copyWith(fontSize: _size!.height * 0.023),
       maxLines: 1,
     );
@@ -243,7 +243,7 @@ class _SearchCountryScreenState extends State<SearchCountryScreen> {
       text,
       style: Theme.of(context)
           .textTheme
-          .headline6!
+          .titleLarge!
           .copyWith(fontSize: _size!.height * 0.02),
     );
   }

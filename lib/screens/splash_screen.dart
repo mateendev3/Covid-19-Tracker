@@ -6,7 +6,7 @@ import '../utils/constants.dart';
 import '../utils/helper_widgets.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
                       text: 'Covid-19\nTracker App',
                       size: size,
                       textStyle:
-                          Theme.of(context).textTheme.headline2!.copyWith(
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
                                 fontSize: size.height * 0.05,
                               ),
                     ),
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
               padding: const EdgeInsets.all(8.0),
               child: _buildAppText(
                 text: '\u00a9 All Rights Reserved',
-                textStyle: Theme.of(context).textTheme.caption!.copyWith(
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: size.height * 0.018,
                     ),
                 size: size,

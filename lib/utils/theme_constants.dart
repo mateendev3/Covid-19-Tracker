@@ -26,25 +26,25 @@ AppBarTheme _getAppBarTheme() {
 
 TextTheme _getTextTheme() {
   return TextTheme(
-    headline2: GoogleFonts.playfairDisplay(
+    displayMedium: GoogleFonts.playfairDisplay(
       color: MyColors.kCodGray,
       fontSize: 40.0,
       fontWeight: FontWeight.w600,
     ),
-    headline3: GoogleFonts.poppins(
+    displaySmall: GoogleFonts.poppins(
       color: MyColors.kCodGray,
       fontSize: 22.0,
     ),
-    headline4: GoogleFonts.poppins(
+    headlineMedium: GoogleFonts.poppins(
       color: MyColors.kCodGray,
       fontSize: 16.0,
       fontWeight: FontWeight.w500,
     ),
-    headline6: GoogleFonts.poppins(
+    titleLarge: GoogleFonts.poppins(
       color: MyColors.kRollingStone,
       fontSize: 16.0,
     ),
-    caption: GoogleFonts.poppins(
+    bodySmall: GoogleFonts.poppins(
       color: MyColors.kCodGray,
       fontWeight: FontWeight.w500,
       fontSize: 14.0,
@@ -57,6 +57,6 @@ ColorScheme _getCustomColorScheme() {
     primary: MyColors.kPorcelain,
     onPrimary: MyColors.kCodGray,
     onError: Colors.redAccent,
-    background: MyColors.kPorcelain,
+    surface: MyColors.kPorcelain,
   );
 }

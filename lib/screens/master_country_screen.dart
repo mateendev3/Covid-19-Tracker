@@ -7,8 +7,7 @@ import '../services/repositories/countries_report_repository.dart';
 import '../utils/constants.dart';
 
 class MasterCountryScreen extends StatefulWidget {
-  const MasterCountryScreen({Key? key, required this.countryName})
-      : super(key: key);
+  const MasterCountryScreen({super.key, required this.countryName});
   final String countryName;
 
   @override
@@ -31,7 +30,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
       appBar: AppBar(
         title: Text(
           countryReport.country!,
-          style: Theme.of(context).textTheme.headline2!.copyWith(
+          style: Theme.of(context).textTheme.displayMedium!.copyWith(
                 fontSize: _size!.height * 0.03,
               ),
         ),
@@ -161,7 +160,7 @@ class _MasterCountryScreenState extends State<MasterCountryScreen> {
   Widget _buildReportText(String text) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.headline4!.copyWith(
+      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
             fontSize: _size!.height * 0.022,
           ),
     );
